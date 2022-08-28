@@ -10,7 +10,7 @@ interface PhotoProps {
 const Photo = (props: PhotoProps) => {
   return (
     <div
-      className={`my-4 mx-3 row-end-[span_${props.size.toString().slice(0, 1)}] relative h-[${
+      className={`my-4 mx-3 row-end-[span_${props.size.toString().slice(0, 2)}] relative h-[${
         props.size
       }]`}
       key={props.photo.id}
@@ -20,12 +20,12 @@ const Photo = (props: PhotoProps) => {
   );
 };
 
-const Home = () => {
-  const randomSize = (): string => {
-    const rand = Math.floor(Math.random() * 3);
-    return rand === 0 ? '250px' : rand === 1 ? '350px' : '450px';
-  };
+const randomSize = (): string => {
+  const rand = Math.floor(Math.random() * 3);
+  return rand === 0 ? '250px' : rand === 1 ? '350px' : '450px';
+};
 
+const Home = () => {
   return (
     <div className="w-screen h-screen flex justify-center items-center p-6">
       <div className="flex-col text-center h-full w-full">
