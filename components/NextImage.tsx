@@ -13,6 +13,7 @@ export function NextImage(props: ImageProps) {
         transform: loading ? 'scale(1.1)' : 'scale(1)',
         filter: loading ? 'blur(10px)' : 'blur(0)',
       }}
+      draggable={false}
       objectFit="cover"
       onLoadingComplete={() => setLoading(false)}
     />
