@@ -16,7 +16,7 @@ export interface RootObject {
   liked_by_user: boolean;
   current_user_collections: any[];
   sponsorship?: any;
-  topic_submissions: Topicsubmissions;
+  topic_submissions: Topicsubmissions | null;
   user: User;
   exif: Exif;
   location: Location;
