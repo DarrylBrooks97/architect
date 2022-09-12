@@ -2,10 +2,16 @@ import Link from 'next/link';
 import Layout from '../components/Layout';
 import { NextImage } from '../components/NextImage';
 import { photos } from '../constants';
+import { motion } from 'framer-motion';
 
 const MyPhoto = () => {
   return (
-    <div className="flex-col justify-around text-center p-2">
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1, transitionDuration: '1000ms' }}
+      exit={{ opacity: 0 }}
+      className="flex-col justify-around text-center p-2"
+    >
       <div className="relative w-full h-56 md:w-56 md:h-96">
         <NextImage src={photos.urls.regular} alt="fdasfasdf" layout="fill" priority />
       </div>
@@ -26,7 +32,7 @@ const MyPhoto = () => {
           View
         </a>
       </Link>
-    </div>
+    </motion.div>
   );
 };
 
