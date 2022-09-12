@@ -1,41 +1,21 @@
 import { NextImage } from '../components/NextImage';
-import { photos } from '../constants';
-import { RootObject } from '../utils';
-
-interface PhotoProps {
-  photo: RootObject;
-  size: number | string;
-}
-
-const Photo = (props: PhotoProps) => {
-  return (
-    <div
-      className={`my-4 mx-3 row-end-[span_${props.size.toString().slice(0, 2)}] relative h-[${
-        props.size
-      }]`}
-      key={props.photo.id}
-    >
-      <NextImage src={props.photo.urls.small} alt={props.photo.id} layout="fill" priority />
-    </div>
-  );
-};
-
-const randomSize = (): string => {
-  const rand = Math.floor(Math.random() * 3);
-  return rand === 0 ? '250px' : rand === 1 ? '350px' : '450px';
-};
 
 const Home = () => {
   return (
-    <div className="w-screen h-screen flex justify-center items-center p-6">
-      <div className="flex-col text-center h-full w-full">
-        {/* <p className="text-5xl font-bold animate-onload">Architect</p> */}
-        <div className="grid absolute justify-center grid-cols-[repeat(auto-fill,250px)] left-1/2 -translate-x-2/4 h-full w-[80vw] auto-rows-[10px]">
-          {new Array<RootObject>(5).fill(photos).map(photo => (
-            <Photo photo={photo} size={randomSize()} key={photo.id} />
-          ))}
+    <div className="max-w-screen-xl flex mx-auto justify-center">
+      {/* Sidebar */}
+      <div className="flex-col p-8 h-screen  text-center space-y-5 ">
+        <div className="relative overflow-hidden w-20 h-20 rounded-full">
+          <NextImage src="/favicon.ico" alt="fdasfasdf" layout="fill" priority />
         </div>
+        <p className="text-white text-xl font-medium cursor-pointer hover:text-slate-400 delay-100">
+          Home
+        </p>
+        <p className="text-white text-xl font-medium cursor-pointer hover:text-slate-400 delay-100">
+          Photos
+        </p>
       </div>
+      <div className="grow ">content</div>
     </div>
   );
 };
