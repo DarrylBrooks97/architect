@@ -5,7 +5,7 @@ import { photos } from '../constants';
 
 const MyPhoto = () => {
   return (
-    <div className="flex-col justify-around text-center">
+    <div className="flex-col justify-around text-center p-2">
       <div className="relative w-full h-56 md:w-56 md:h-96">
         <NextImage src={photos.urls.regular} alt="fdasfasdf" layout="fill" priority />
       </div>
@@ -32,7 +32,7 @@ const MyPhoto = () => {
 
 const Home = () => {
   return (
-    <div className="max-w-screen-xl h-screen md:flex mx-auto justify-center p-8">
+    <div className="max-w-screen-xl h-screen md:flex mx-auto justify-center p-4">
       <Layout>
         <div className="grid grid-cols-1 gap-4 md:gap-1 md:grid-cols-2 p-3">
           <MyPhoto />
