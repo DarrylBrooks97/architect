@@ -116,3 +116,10 @@ export interface Urls {
   thumb: string;
   small_s3: string;
 }
+
+export const getExpiredDate = () => {
+  const expiredDate = new Date();
+  const offset = expiredDate.getTime() + 1000 * 600;
+  expiredDate.setTime(offset);
+  return expiredDate;
+};

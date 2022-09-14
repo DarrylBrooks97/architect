@@ -3,6 +3,9 @@ import Layout from '../components/Layout';
 import { NextImage } from '../components/NextImage';
 import { photos } from '../constants';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { GetServerSidePropsContext } from 'next';
+import { getExpiredDate } from '../utils';
 
 const MyPhoto = () => {
   return (
@@ -36,17 +39,54 @@ const MyPhoto = () => {
   );
 };
 
-const Home = () => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const { req, res } = ctx;
+  const seen = req.cookies['seen'] === 'true';
+
+  if (!seen) {
+    const expiredDate = getExpiredDate();
+    res.setHeader(
+      'Set-Cookie',
+      `seen=true;expires=${expiredDate.toUTCString()}; path=/; samesite=lax; httponly;`,
+    );
+  }
+
+  return {
+    props: {
+      seen,
+    },
+  };
+};
+
+const Home = ({ seen }: { seen: boolean }) => {
+  const [loaded, setLoaded] = useState(seen);
+
+  useEffect(() => {
+    const interval = setTimeout(() => {
+      setLoaded(true);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="max-w-screen-xl h-screen md:flex mx-auto justify-center p-4">
-      <Layout>
-        <div className="grid grid-cols-1 gap-4 md:gap-1 md:grid-cols-2 p-3">
-          <MyPhoto />
-          <MyPhoto />
-          <MyPhoto />
+    <>
+      {loaded ? (
+        <div className="max-w-screen-xl h-screen md:flex mx-auto justify-center p-4">
+          <Layout>
+            <div className="grid grid-cols-1 gap-4 md:gap-1 md:grid-cols-2 p-3 animate-afterload">
+              <MyPhoto />
+              <MyPhoto />
+              <MyPhoto />
+            </div>
+          </Layout>
         </div>
-      </Layout>
-    </div>
+      ) : (
+        <div className="w-screen h-screen flex justify-center items-center">
+          <p className="text-white animate-onload text-3xl">Architect</p>
+        </div>
+      )}
+    </>
   );
 };
 
