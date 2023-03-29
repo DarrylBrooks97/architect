@@ -1,4 +1,4 @@
-import { RootObject } from './utils';
+import { RootObject } from '~/utils';
 
 export const photos: RootObject = {
   id: 'jbyLu_fh5fY',

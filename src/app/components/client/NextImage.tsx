@@ -1,5 +1,7 @@
+'use client';
+
 import Image, { ImageProps } from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function NextImage(props: ImageProps) {
   const [loading, setLoading] = useState(true);
@@ -14,7 +16,6 @@ export function NextImage(props: ImageProps) {
         filter: loading ? 'blur(10px)' : 'blur(0)',
       }}
       draggable={false}
-      objectFit="cover"
       onLoadingComplete={() => setLoading(false)}
     />
   );
