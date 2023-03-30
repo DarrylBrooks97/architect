@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 
 type RootLayoutProps = PropsWithChildren<{}>;
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
 	title: 'Darryl Brooks',
 	description: 'Darryl Brooks personal website',
 	viewport: 'width=device-width, initial-scale=1',
