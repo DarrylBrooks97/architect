@@ -1,40 +1,137 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import MyPhoto from './MyPhoto';
-import NavigationBar from './NavigationBar';
+import { motion } from 'framer-motion';
 
 type ContentProps = {
-  seen: boolean;
+	seen: boolean;
 };
 
+const links = [
+	{
+		href: 'https://www.twitter.com/darryl_codes',
+		label: 'Twitter',
+		icon: <></>,
+	},
+	{
+		href: 'https://github.com/DarrylBrooks97',
+		label: 'Github',
+		icon: <></>,
+	},
+	{
+		href: 'https://read.cv/darrylcodes',
+		label: 'Read.cv',
+		icon: <></>,
+	},
+	{
+		href: 'https://www.instagram.com/darryl.codes/',
+		label: 'Instagram',
+		icon: <></>,
+	},
+];
+
 export default function Content({ seen }: ContentProps) {
-  const [loaded, setLoaded] = useState(seen);
+	const [loaded, setLoaded] = useState(seen);
 
-  useEffect(() => {
-    const interval = setTimeout(() => {
-      setLoaded(true);
-    }, 3000);
+	useEffect(() => {
+		setTimeout(() => {
+			setLoaded(true);
+		}, 3500);
+	}, [loaded]);
 
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <>
-      {loaded ? (
-        <div className="max-w-screen-xl h-screen md:flex mx-auto justify-center p-4">
-          <NavigationBar />
-          <div className="grid grid-cols-1 gap-4 md:gap-1 md:grid-cols-2 p-3 animate-afterload">
-            <MyPhoto />
-            <MyPhoto />
-            <MyPhoto />
-          </div>
-        </div>
-      ) : (
-        <div className="w-screen h-screen flex justify-center items-center">
-          <p className="text-white animate-onload text-3xl">Hello 👋🏾</p>
-        </div>
-      )}
-    </>
-  );
+	return (
+		<div className="max-w-screen-xl h-screen md:flex mx-auto justify-center p-4">
+			{!loaded ? (
+				<div className="w-full h-full flex justify-center items-center">
+					<p className="text-white self-center animate-onload text-3xl">Hello 👋🏾</p>
+				</div>
+			) : (
+				<div className="w-full h-full flex flex-col justify-center items-center ">
+					<div className="flex flex-col space-y-5">
+						<div className="animate-afterload ">
+							<div className="relative w-28 h-28 overflow-clip rounded-full">
+								<Image src="/avatar.jpg" alt="Darryl Brooks" width={1920} height={1080} />
+							</div>
+						</div>
+						<motion.p
+							initial={{ filter: 'blur(1px)', opacity: 0, animationDuration: '3s' }}
+							animate={{
+								opacity: 1,
+								filter: 'blur(0px)',
+								transition: {
+									duration: 3,
+									ease: 'easeIn',
+								},
+							}}
+							className=" text-white text-lg"
+						>
+							Darryl Brooks
+						</motion.p>
+					</div>
+					<div className="w-full px-4 md:w-1/3 flex mt-6">
+						<motion.div className="w-full md:w-1/2 flex space-x-6 justify-center items-center">
+							{links.slice(0, 2).map((link, idx) => (
+								<a
+									href={link.href}
+									key={link.label}
+									className="hover:border-b-[1px] ease-in-out -mt-1 duration-100 hover:border-b-slate-300"
+								>
+									<motion.p
+										key={link.label}
+										initial={{ opacity: 0, filter: 'blur(1px)' }}
+										animate={{
+											opacity: 1,
+											filter: 'blur(0px)',
+											transition: {
+												delay: idx * 0.18,
+												duration: 1.4,
+												ease: 'easeIn',
+											},
+										}}
+										className=" text-white text-sm md:text-lg"
+									>
+										{link.label}
+									</motion.p>
+								</a>
+							))}
+						</motion.div>
+						<motion.div
+							animate={{
+								transition: {
+									staggerChildren: 8,
+									staggerDirection: -1,
+								},
+							}}
+							className="w-full md:w-1/2 flex space-x-6 justify-center"
+						>
+							{links.slice(2, 4).map((link, idx) => (
+								<a
+									href={link.href}
+									key={link.label}
+									className="hover:border-b-[1px] transistion-all -mt-[1px]hover:border-b-slate-300"
+								>
+									<motion.p
+										initial={{ filter: 'blur(1px)', opacity: 0 }}
+										animate={{
+											opacity: 1,
+											filter: 'blur(0px)',
+											transition: {
+												delay: idx * 0.18,
+												duration: 1.4,
+												ease: 'easeIn',
+											},
+										}}
+										className=" text-white text-sm md:text-lg"
+									>
+										{link.label}
+									</motion.p>
+								</a>
+							))}
+						</motion.div>
+					</div>
+				</div>
+			)}
+		</div>
+	);
 }
